@@ -52,7 +52,7 @@ for b in balances:
         usdt_balance = b['availableBalance']
 
 def get_current_status():
-    orderbook = binance.futures_order_book(symbol="BTCUSDT")
+    #orderbook = binance.futures_order_book(symbol="BTCUSDT")
     current_time = cm_futures_client.time()
     usdt_balance = 0
     notional_value = 0
@@ -67,16 +67,16 @@ def get_current_status():
             btc_entryprice = p['entryPrice']
             notional_value = p['notional']
 
-    current_status = {'current_time': current_time, 'orderbook': orderbook, 'notional_value': notional_value, 'usdt_balance': usdt_balance, 'btc_entryprice': btc_entryprice}
+    current_status = {'current_time': current_time, 'notional_value': notional_value, 'usdt_balance': usdt_balance, 'btc_entryprice': btc_entryprice}
     return json.dumps(current_status)
 
 
 def fetch_and_prepare_data():
     # Fetch data
     #daily = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '1d', start_str = str(month_date))
-    f_hourly = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '4h', start_str = str(month_date))
+    #f_hourly = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '4h', start_str = str(month_date))
     hourly = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '1h', start_str = str(week_date))
-    #minutes = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '15m', start_str = str(day_date))
+    minutes = binance.futures_historical_klines(symbol = 'BTCUSDT', interval = '15m', start_str = str(day_date))
 
     def filter_indices(data):
         indices_to_keep = [0, 1, 2, 3, 4, 5, 7]
@@ -90,14 +90,14 @@ def fetch_and_prepare_data():
         return filtered_data
 
     #daily = filter_indices(daily)
-    f_hourly = filter_indices(f_hourly)
+    #f_hourly = filter_indices(f_hourly)
     hourly = filter_indices(hourly)
-    #minutes = filter_indices(minutes)
+    minutes = filter_indices(minutes)
 
     #df_daily = pd.DataFrame(daily, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
-    df_f_hourly = pd.DataFrame(f_hourly, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
+    #df_f_hourly = pd.DataFrame(f_hourly, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
     df_hourly = pd.DataFrame(hourly, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
-    #df_minutes = pd.DataFrame(minutes, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
+    df_minutes = pd.DataFrame(minutes, columns=['Open time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Quote asset volume'])
 
     def convert_dataframe_values_to_numeric(df):
       for column in df.columns:
@@ -105,9 +105,9 @@ def fetch_and_prepare_data():
       return df
 
     #df_daily = convert_dataframe_values_to_numeric(df_daily)
-    df_f_hourly= convert_dataframe_values_to_numeric(df_f_hourly)
+    #df_f_hourly= convert_dataframe_values_to_numeric(df_f_hourly)
     df_hourly = convert_dataframe_values_to_numeric(df_hourly)
-    #df_minutes = convert_dataframe_values_to_numeric(df_minutes)
+    df_minutes = convert_dataframe_values_to_numeric(df_minutes)
     
     # Define a helper function to add indicators
     def add_indicators(df):
@@ -118,11 +118,11 @@ def fetch_and_prepare_data():
 
     # Add indicators to both dataframes
     #df_daily = add_indicators(df_daily)
-    df_f_hourly = add_indicators(df_f_hourly)
+    #df_f_hourly = add_indicators(df_f_hourly)
     df_hourly = add_indicators(df_hourly)
-    #df_minutes = add_indicators(df_minutes)
+    df_minutes = add_indicators(df_minutes)
 
-    combined_df = pd.concat([df_f_hourly, df_hourly], keys=['f_hourly', 'hourly'])
+    combined_df = pd.concat([df_hourly, df_minutes], keys=['hourly', 'minutes'])
     combined_data = combined_df.to_json(orient='split')
 
     # make combined data as string and print length

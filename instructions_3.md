@@ -13,7 +13,7 @@ There are few absolute rules of Elliott's wave theory. First absolute rule is th
 - **Purpose**: Provides comprehensive analytics on the BTCUSDT trading to facilitate market trend analysis and guide investment decisions.
 - **Contents**:
 - `columns`: Lists essential data points including Timestamps for data entries, Market Prices (Open, High, Low, Close), Trading Volume, and Technical Indicators (RSI_14).
-- `index`: Labeled 'f_hourly'(which means 4hours interval) and 'hourly'.
+- `index`: Labeled 'hourly' and 'minutes'(which menas 15minutes interval).
 - `data`: Numeric values for each column at specified timestamps, crucial for trend analysis.
 Example structure for JSON Data 1 (Market Analysis Data) is as follows:
 ```json
@@ -36,33 +36,6 @@ Example structure for JSON Data 2 (Current Investment State) is as follows:
 ```json
 {
     "current_time": <timestamp in milliseconds since the Unix epoch>,
-    "orderbook": {
-        "lastUpdateId": <The last update ID of the order book. This is useful for tracking changes to the order book over time>,
-        "E": <It represents the timestamp of the order book update in milliseconds since the Unix epoch>,
-        "T": <It is a timestamp that indicates when the transaction or event occurred>,
-        "bids": [
-            {
-                "bid_price": <price at which buyers are willing to purchase Bitcoin>,
-                "bid_size": <quantity of Bitcoin buyers are ready to purchase at the bid price>
-            },
-            {
-                "bid_price": <next bid price>,
-                "bid_size": <next bid size>
-            }
-            // More orderbook units can be listed here
-        ],
-        "asks": [
-            {
-                "ask_price": <price at which sellers are willing to sell Bitcoin>,
-                "ask_size": <quantity of Bitcoin available for sale at the ask price>
-            },
-            {
-                "ask_price": <next ask price>,
-                "ask_size": <next ask size>,
-            }
-            // More orderbook units can be listed here
-        ]
-    },
     "notional_value": "<The notional value of a BTCUSDT contract is the total value of the asset that the contract controls>",
     "usdt_balance": "<The amount of USDT currently held>",
     "btc_entryprice": "<The price at which a trader buys or sells Bitcoin (BTC) against Tether (USDT)>"
