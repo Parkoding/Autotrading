@@ -247,7 +247,7 @@ def analyze_data_with_gpt4(data_json, last_decisions, current_status):
 def execute_buy(percentage):
     print("Attempting to buy BTCUSDT with a percentage of USDT balance...")
     try:
-        amount_to_invest = round(0.02 * percentage / 100)
+        amount_to_invest = round(0.02 * percentage / 100, 3)
         if float(usdt_balance) > 20:
             result = binance.futures_create_order(symbol = "BTCUSDT", type= "MARKET", side = 'BUY', quantity = amount_to_invest)
             print("Buy order successful:", result)
@@ -257,7 +257,7 @@ def execute_buy(percentage):
 def execute_sell(percentage):
     print("Attempting to sell a percentage of BTC...")
     try:
-        amount_to_sell = round(0.02 * percentage / 100)
+        amount_to_sell = round(0.02 * percentage / 100, 3)
         if float(usdt_balance) > 20:
             result = binance.futures_create_order(symbol = "BTCUSDT", type= "MARKET", side = 'SELL', quantity = amount_to_sell)
             print("Sell order successful:", result)
