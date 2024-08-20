@@ -12,6 +12,11 @@ First. correction waves never pass the starting point of the previous impulse wa
 Second. end point of wave 1 and the starting point of wave 4 do not meet.
 Third. wave 3 can't be shortest wave.
 
+### Examples of Elliot Wave Analyzing
+![Ending diagnal](https://github.com/Parkoding/Autotrading/blob/main/Ending%20diagonal.png?raw=true)
+![Impulse waves](https://github.com/Parkoding/Autotrading/blob/main/Impulse%20waves.png?raw=true)
+
+
 ## Data Overview
 ### JSON Data 1: Market Analysis Data
 - **Purpose**: Provides comprehensive analytics on the BTCUSDT trading to facilitate market trend analysis and guide investment decisions.
