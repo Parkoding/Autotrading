@@ -164,20 +164,20 @@ def analyze_data_with_gpt4(data_json):
         return None
 
 def execute_buy():
-    print("Attempting to buy BTCUSDT...")
-    try:
-        if float(usdt_balance) > 20:
-            result = binance.futures_create_order(symbol = "BTCUSDT", type= "MARKET", side = 'BUY', quantity = 0.02)
-            print("Buy order successful:", result)
-    except Exception as e:
-        print(f"Failed to execute buy order: {e}")
-
-def execute_sell():
-    print("Attempting to sell BTC...")
+    print("Attempting to sell BTCUSDT...")
     try:
         if float(usdt_balance) > 20:
             result = binance.futures_create_order(symbol = "BTCUSDT", type= "MARKET", side = 'SELL', quantity = 0.02)
             print("Sell order successful:", result)
+    except Exception as e:
+        print(f"Failed to execute buy order: {e}")
+
+def execute_sell():
+    print("Attempting to buy BTC...")
+    try:
+        if float(usdt_balance) > 20:
+            result = binance.futures_create_order(symbol = "BTCUSDT", type= "MARKET", side = 'BUY', quantity = 0.02)
+            print("Buy order successful:", result)
     except Exception as e:
         print(f"Failed to execute sell order: {e}")
 
